@@ -63,7 +63,7 @@ public class BFinder{
                  for(int c = -1; c<2 ; c++){ //1 left to 1 right
                         if (map[i+r][j+c] > (map[i][j]+0.01)){
                            // System.out.println(map[i+r][j+c] + " is Higher by 0.01 than " + map[i][j]);
-                            iHiNeighbouSrs++;
+                            iHiNeighbours++;
                         }
                     }
 

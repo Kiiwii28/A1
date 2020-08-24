@@ -29,6 +29,10 @@ public class Plot{
     public int getiRow() {
         return iRow;
     }
+
+    public String toString() {
+        return iRow + " " +iCol;
+    }
 }
 
 
