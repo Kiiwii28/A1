@@ -47,10 +47,10 @@ public class BFinder{
         }
 
         //System.out.println(map[0][3]);
-            System.out.println("only non-edges");
+          //  System.out.println("only non-edges");
         for(int i = 1; i<iRows-1; i++) { //miss first row and last row, first column and last column
             for(int j = 1; j<iCols-1; j++){
-                System.out.print(map[i][j]+ " ");
+               // System.out.print(map[i][j]+ " ");
                // System.out.println();
 
                 //find each non-edge plot
@@ -63,7 +63,7 @@ public class BFinder{
                  for(int c = -1; c<2 ; c++){ //1 left to 1 right
                         if (map[i+r][j+c] > (map[i][j]+0.01)){
                            // System.out.println(map[i+r][j+c] + " is Higher by 0.01 than " + map[i][j]);
-                            iHiNeighbours++;
+                            iHiNeighbouSrs++;
                         }
                     }
 
