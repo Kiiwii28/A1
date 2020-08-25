@@ -3,12 +3,12 @@
 **/
 import java.util.concurrent.RecursiveTask;
     //recursive task includes a base case and then something that makes smaller array and calls the recursive task
-public class BFinderStrip extends RecursiveTask<Integer>{ //# changed it to single array
+public class BFinderStrip extends RecursiveTask<String>{ //# changed it to single array
     int lo;
     int hi;
     float[][] map; //entire array 2d used for comparisons
-    static final int SEQUENTIAL_CUTOFF=500; //change later//default, change with constructor?
-    plot[] map1D; // gets broken down during recursion
+    int SEQUENTIAL_CUTOFF=500; //change later//default, change with constructor?
+    Plot[] map1D; // gets broken down during recursion
     int iBasinCount;
 
         /**
@@ -17,12 +17,13 @@ public class BFinderStrip extends RecursiveTask<Integer>{ //# changed it to sing
          * @param h
          */
 
-
-    BFinderStrip(float[][] mapPass,Plot[] p  int l,int h){
-        low = l;
+    //variables in headins match
+    BFinderStrip(float[][] mapPass,Plot[] p,  int l,int h,int sq){
+        lo = l;
         hi = h;
         map1D = p;
         map = mapPass;
+        SEQUENTIAL_CUTOFF = sq; //usually iRows-2 or iRows?
 
     }
         //need to return total number of basins and actual basin co-ords
@@ -30,11 +31,12 @@ public class BFinderStrip extends RecursiveTask<Integer>{ //# changed it to sing
         if ((hi-lo) < SEQUENTIAL_CUTOFF){
             //int iStripBasins = 0;
             String ans = "";
+          //  System.out.println("in base case");
             for(int f=lo; f<hi; f++){ //for this plot in this piece of thread
                 //check if basin
                 //get col and get row
-                int iRow = strip[f].getiRow();
-                int iCol = strip[f].getiCol();
+                int iRow = map1D[f].getiRow();
+                int iCol = map1D[f].getiCol();
                 int iHiNeighbours = 0;
                 /**
                  * here we make sure strip of array is small enough to fit below sequetial threshold
@@ -53,19 +55,20 @@ public class BFinderStrip extends RecursiveTask<Integer>{ //# changed it to sing
 
                 }
                 if (iHiNeighbours == 8){
-                    System.out.println(map1D[f] + "has full high neighbours.. 8");
+                  //  System.out.println(map1D[f] + "has full high neighbours.. 8");
                     //potentially print out coords of basin which will be redirected to output to tf in makefile
                     //iStripBasins++;
-                    ans = ans + " ** " + map1D[f].toString(); //can use '**' to deliminate different points
+                    ans = ans + map1D[f].toString() + "\n";
                 }
 
             }//end base case loop
+          //  System.out.println("End of base case loop");
             return ans;
 
         }
         else {
-            BFinderStrip left = new BFinderStrip(map,map1D,lo,(hi+lo)/2);
-            BFinderStrip right = new BFinderStrip(map,map1D,(hi+lo)/2,hi);
+            BFinderStrip left = new BFinderStrip(map,map1D,lo,(hi+lo)/2,SEQUENTIAL_CUTOFF);
+            BFinderStrip right = new BFinderStrip(map,map1D,(hi+lo)/2,hi,SEQUENTIAL_CUTOFF);
 
             left.fork();
             String rightAns = right.compute();

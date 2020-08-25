@@ -16,7 +16,7 @@ public class TestRecursion{
     int iBasinCount;
 
     TestRecursion(float[][] mapPass,Plot[] p,  int l,int h,int SQ){
-        System.out.println("Creating TestRecursion");
+        //System.out.println("Creating TestRecursion");
         lo = l;
         hi = h;
         map1D = p;
@@ -26,18 +26,21 @@ public class TestRecursion{
     }
     //need to return total number of basins and actual basin co-ords
     protected String RecursionFunction(float[][] map,Plot[] map1D,int lo,int hi){
-        System.out.println("Entering recursive function...");
-        System.out.println();
+        //System.out.println("Entering recursive function...");
+        //System.out.println();
         if ((hi-lo) < SEQUENTIAL_CUTOFF){
             //int iStripBasins = 0;
             String ans = "";
+           /**
             System.out.println("ans = " + ans );
             System.out.println("inside base case: ");
             System.out.println("current strip length (1D array length is constant = " + lo + " .. " + hi + "("+(hi-lo)+")");
-          //  System.out.println("hi = " + hi);
-          //  System.out.println("lo = " + lo);
-         //   System.out.println("expecting error.........");
-        //    System.out.println(map1D[4]);
+
+            System.out.println("hi = " + hi);
+            System.out.println("lo = " + lo);
+            System.out.println("expecting error.........");
+            System.out.println(map1D[4]);
+            **/
             for(int f=lo; f<hi; f++){ //iterate through each element in current strip
                 //check if basin
                 //get col and get row
@@ -56,21 +59,21 @@ public class TestRecursion{
 
                 }
                 if (iHiNeighbours == 8){
-                    System.out.println(map1D[f] + " has full high neighbours.. 8");
+                 //   System.out.println(map1D[f] + " has full high neighbours.. 8");
                     //potentially print out coords of basin which will be redirected to output to tf in makefile
                     //iStripBasins++;
                     ans = ans + map1D[f].toString() + "\n"; //can use '**' to deliminate different points
                 }
 
             }//end base case loop
-            System.out.println("end of base case loop");
+            //System.out.println("end of base case loop");
             return ans;
 
         }
         else {  //could be this.RecursiveFunction?
-            System.out.println("going left I think. " + lo + " = low + mid = " + (hi+lo)/2);
+            //System.out.println("going left I think. " + lo + " = low + mid = " + (hi+lo)/2);
             String leftAns = RecursionFunction(map,map1D,lo,(hi+lo)/2);
-            System.out.println("going left I think.");
+            //System.out.println("going left I think.");
             String rightAns = RecursionFunction(map,map1D,(hi+lo)/2,hi);
 
             return leftAns + rightAns;

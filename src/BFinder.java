@@ -3,22 +3,32 @@ import java.io.FileNotFoundException;
 import java.io.File;
 
 public class BFinder{
+    static long startTime = 0;
+
+    private static void tick() {
+        startTime = System.currentTimeMillis();
+    }
+
+    private static float tock() {
+        // (System.currentTimeMillis() - startTime) / 1000.0f; /
+        return (System.currentTimeMillis() - startTime); //returns seconds
+    }
     public static void main(String [] args) throws FileNotFoundException{
-            System.out.println("hello");
+           // System.out.println("hello");
             int iBasinCount = 0;
 
           String sFileIN = args[0];
           String sFileOUT = args[1];
 
-          System.out.println(sFileIN + " " + sFileOUT);
+      //    System.out.println(sFileIN + " " + sFileOUT);
 
           Scanner input = new Scanner(new File(sFileIN));
           Scanner sSizes = new Scanner(input.nextLine());
 
           int iRows = sSizes.nextInt();
           int iCols = sSizes.nextInt();
-          System.out.println(iRows + " = rows");
-        System.out.println(iCols + " = Columns");
+     //     System.out.println(iRows + " = rows");
+      //  System.out.println(iCols + " = Columns");
 
         //for output purposes
         String[] basinPositons = new String[iRows*iCols] ;
@@ -45,7 +55,7 @@ public class BFinder{
             //System.out.println("NEXT ROW");
             //System.out.println();
         }
-
+        tick();
         //System.out.println(map[0][3]);
           //  System.out.println("only non-edges");
         for(int i = 1; i<iRows-1; i++) { //miss first row and last row, first column and last column
@@ -69,19 +79,24 @@ public class BFinder{
 
                 }
                 if (iHiNeighbours == 8){
-                    System.out.println(map[i][j] + "has full high neighbours.. 8");
+                    //System.out.println(map[i][j] + "has full high neighbours.. 8");
                     basinPositons[iBasinCount] = i + " " + j;
                     iBasinCount++;
 
                 }
             }
-            System.out.println();
+           // System.out.println();
             //System.out.println();
         }
         System.out.println("number of basins = " + iBasinCount);
         for (int i = 0; i<iBasinCount;i++){
             System.out.println("Basin number: " + i + " at " + basinPositons[i]);
+           // System.out.println(basinPositons[i]);
+
         }
+           float time = tock();
+        System.out.println("Time took was " + time);
+
     }
 
 
