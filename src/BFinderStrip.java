@@ -65,10 +65,12 @@ public class BFinderStrip extends RecursiveTask<Integer>{ //# changed it to sing
         }
         else {
             BFinderStrip left = new BFinderStrip(map,map1D,lo,(hi+lo)/2);
-            BFinderStrip(map,map1D,(hi+lo)/2,hi);
+            BFinderStrip right = new BFinderStrip(map,map1D,(hi+lo)/2,hi);
 
             left.fork();
             String rightAns = right.compute();
+            String leftAns = left.join();
+            return leftAns + rightAns;
         }
     }
 
